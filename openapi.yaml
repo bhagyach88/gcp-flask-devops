@@ -1,0 +1,53 @@
+swagger: '2.0'
+info:
+  title: 'Flask API'
+  description: 'API for the DevOps Capstone Project'
+  version: '1.0.0'
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /api/data:
+    post:
+      summary: 'Create Data'
+      operationId: 'createData'
+      x-google-backend:
+        address: '' # To be filled with Cloud Run URL
+        protocol: 'h2'
+      responses:
+        '201':
+          description: 'Data created successfully'
+        '400':
+          description: 'Invalid request'
+        '500':
+          description: 'Internal server error'
+  /api/data/{doc_id}:
+    get:
+      summary: 'Get Data by ID'
+      operationId: 'getData'
+      x-google-backend:
+        address: '' # To be filled with Cloud Run URL
+        protocol: 'h2'
+      parameters:
+        - name: 'doc_id'
+          in: 'path'
+          required: true
+          type: 'string'
+      responses:
+        '200':
+          description: 'Successful operation'
+        '404':
+          description: 'Document not found'
+        '500':
+          description: 'Internal server error'
+  /:
+    get:
+      summary: 'Health Check'
+      operationId: 'hello'
+      x-google-backend:
+        address: '' # To be filled with Cloud Run URL
+        protocol: 'h2'
+      responses:
+        '200':
+          description: 'Successful operation'

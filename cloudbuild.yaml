@@ -1,0 +1,59 @@
+steps:
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$COMMIT_SHA', '.']
+
+# Push the container image to Artifact Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$COMMIT_SHA']
+
+# Deploy container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+  - 'run'
+  - 'deploy'
+  - '${_SERVICE_NAME}'
+  - '--image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$COMMIT_SHA'
+  - '--region=${_REGION}'
+  - '--platform=managed'
+  - '--allow-unauthenticated'
+
+# Create or update the API Gateway
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
+  args:
+    - 'api-gateways'
+    - 'api-configs'
+    - 'create'
+    - '${_API_CONFIG_NAME}'
+    - '--api=${_API_NAME}'
+    - '--openapi-spec=openapi.yaml'
+    - '--project=$PROJECT_ID'
+    - '--backend-auth-service-account=${_BACKEND_SA}'
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
+  args:
+    - 'api-gateways'
+    - 'gateways'
+    - 'update'
+    - '${_GATEWAY_NAME}'
+    - '--api=${_API_NAME}'
+    - '--api-config=${_API_CONFIG_NAME}'
+    - '--location=${_REGION}'
+    - '--project=$PROJECT_ID'
+
+images:
+- '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$COMMIT_SHA'
+
+substitutions:
+  _REGION: 'us-central1'
+  _SERVICE_NAME: 'flask-api'
+  _REPO_NAME: 'devops-repo'
+  _API_NAME: 'flask-api-gw'
+  _API_CONFIG_NAME: 'flask-api-config'
+  _GATEWAY_NAME: 'flask-gateway'
+  _BACKEND_SA: '' # To be filled in the README
+  
+options:
+  logging: CLOUD_LOGGING_ONLY
