@@ -23,7 +23,7 @@ steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   args:
-    - 'api-gateways'
+    - 'api-gateway'
     - 'api-configs'
     - 'create'
     - '${_API_CONFIG_NAME}'
@@ -34,7 +34,7 @@ steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   args:
-    - 'api-gateways'
+    - 'api-gateway'
     - 'gateways'
     - 'update'
     - '${_GATEWAY_NAME}'
