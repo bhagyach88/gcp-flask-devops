@@ -13,7 +13,7 @@ paths:
       summary: 'Create Data'
       operationId: 'createData'
       x-google-backend:
-        address: '' # To be filled with Cloud Run URL
+        address: 'https://flask-api-e2m6hkummq-uc.a.run.app'
         protocol: 'h2'
       responses:
         '201':
@@ -27,7 +27,7 @@ paths:
       summary: 'Get Data by ID'
       operationId: 'getData'
       x-google-backend:
-        address: '' # To be filled with Cloud Run URL
+        address: 'https://flask-api-e2m6hkummq-uc.a.run.app'
         protocol: 'h2'
       parameters:
         - name: 'doc_id'
@@ -46,7 +46,7 @@ paths:
       summary: 'Health Check'
       operationId: 'hello'
       x-google-backend:
-        address: '' # To be filled with Cloud Run URL
+        address: 'https://flask-api-e2m6hkummq-uc.a.run.app'
         protocol: 'h2'
       responses:
         '200':
