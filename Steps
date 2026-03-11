@@ -1,0 +1,37 @@
+# DevOps Capstone Project: Containerized Python Flask Application on Google Cloud
+
+## Overview:
+This project demonstrates a complete DevOps workflow for a containerized Python Flask application on Google Cloud Platform. The application provides a simple REST API to create and retrieve data from a Firestore database. The entire infrastructure is provisioned and managed using the `gcloud` CLI.
+
+## Current status:
+- The git repository `gcp-flask-devops` has been cloned to your working directory.
+- The `README.md` file has been reviewed and provides detailed instructions for setting up the project.
+
+## Next possible steps:
+
+Based on the `README.md`, here are some potential next steps you might want to take:
+
+1.  **Review the application code:** Examine the `app/main.py` and `app/requirements.txt` files to understand the Flask application.
+2.  **Review Dockerfile:** Understand how the application is containerized.
+3.  **Review cloudbuild.yaml:** Understand the CI/CD pipeline definition.
+4.  **Review openapi.yaml:** Understand the API definition.
+5.  **Set up Google Cloud environment:**
+    *   Ensure you have a Google Cloud Account with billing enabled.
+    *   Install and configure the Google Cloud SDK (`gcloud auth login`, `gcloud config set project [PROJECT_ID]`).
+    *   Enable required APIs (`gcloud services enable ...`).
+6.  **Set up Artifact Registry:** Create a Docker repository to store container images.
+7.  **Configure Cloud Build:**
+    *   Grant necessary IAM permissions to the Cloud Build service account.
+    *   Create a Cloud Build trigger for your GitHub repository.
+8.  **Deploy to Cloud Run:** Manually deploy the Flask application to Cloud Run (optional, as CI/CD will handle this).
+9.  **Set up API Gateway:**
+    *   Create a service account for the backend.
+    *   Grant Cloud Run Invoker role to the backend service account.
+    *   Update `cloudbuild.yaml` and `openapi.yaml` with service account email and Cloud Run service URL.
+    *   Create the API and Gateway.
+10. **Set up Firestore Database:** Create a Firestore database.
+11. **Set up Cloud Monitoring:** Create an Uptime Check and Alerting Policy.
+12. **Test the API Endpoint:** Use `curl` commands to test the deployed API.
+13. **Cleanup:** Run cleanup commands to delete all provisioned resources.
+
+Please let me know which step you'd like to proceed with, or if you have a different goal in mind.
