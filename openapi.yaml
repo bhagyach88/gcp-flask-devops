@@ -14,7 +14,7 @@ paths:
       operationId: 'createData'
       x-google-backend:
         address: 'https://flask-api-e2m6hkummq-uc.a.run.app'
-        protocol: 'h2'
+
       responses:
         '201':
           description: 'Data created successfully'
@@ -28,7 +28,7 @@ paths:
       operationId: 'getData'
       x-google-backend:
         address: 'https://flask-api-e2m6hkummq-uc.a.run.app'
-        protocol: 'h2'
+
       parameters:
         - name: 'doc_id'
           in: 'path'
@@ -47,7 +47,7 @@ paths:
       operationId: 'hello'
       x-google-backend:
         address: 'https://flask-api-e2m6hkummq-uc.a.run.app'
-        protocol: 'h2'
+
       responses:
         '200':
           description: 'Successful operation'
