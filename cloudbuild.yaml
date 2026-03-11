@@ -19,13 +19,20 @@ steps:
   - '--platform=managed'
   - '--allow-unauthenticated'
 
+# Delete existing API Gateway API Config (if any) to ensure latest openapi.yaml is used
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - 'gcloud api-gateway api-configs delete ${_API_CONFIG_NAME} --api=${_API_NAME} --project=$PROJECT_ID --quiet || true'
+
 # Create or update the API Gateway
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
   args:
     - 'api-gateway'
     - 'api-configs'
-    - 'update'
+    - 'create'
     - '${_API_CONFIG_NAME}'
     - '--api=${_API_NAME}'
     - '--openapi-spec=openapi.yaml'
