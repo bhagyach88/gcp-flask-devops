@@ -25,7 +25,7 @@ steps:
   args:
     - 'api-gateway'
     - 'api-configs'
-    - 'create'
+    - 'update'
     - '${_API_CONFIG_NAME}'
     - '--api=${_API_NAME}'
     - '--openapi-spec=openapi.yaml'
