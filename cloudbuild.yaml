@@ -33,6 +33,23 @@ steps:
     - '-c'
     - 'gcloud api-gateway api-configs delete ${_API_CONFIG_NAME} --api=${_API_NAME} --project=$PROJECT_ID --quiet || true'
 
+# Delete existing API Gateway API (if any)
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - 'gcloud api-gateway apis delete ${_API_NAME} --project=$PROJECT_ID --quiet || true'
+
+# Create the API Gateway API
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'gcloud'
+  args:
+    - 'api-gateway'
+    - 'apis'
+    - 'create'
+    - '${_API_NAME}'
+    - '--project=$PROJECT_ID'
+
 # Create the API Gateway API Config
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: 'gcloud'
